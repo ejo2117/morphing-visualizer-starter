@@ -9,7 +9,6 @@ uniform float uTime;
 
 #define PI 3.14159265358979
 
-int windows = 0;
 vec2 m = vec2(.7,.8);
 
 float hash( in vec2 p ) 
@@ -23,15 +22,6 @@ vec2 hash2(vec2 p)
 	return vec2(hash(p*.754),hash(1.5743*p.yx+4.5891))-.5;
 }
 
-vec2 hash2b( vec2 p )
-{
-    vec2 q = vec2( dot(p,vec2(127.1,311.7)), 
-				   dot(p,vec2(269.5,183.3)) );
-	return fract(sin(q)*43758.5453)-.5;
-}
-
-
-mat2 m2= mat2(.8,.6,-.6,.8);
 
 // Gabor/Voronoi mix 3x3 kernel (some artifacts for v=1.)
 float gavoronoi3(in vec2 p)
