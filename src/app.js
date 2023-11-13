@@ -17,6 +17,7 @@ import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl' 
 
 import TRACK from './sounds/fire.mp3'
+import gsap from 'gsap'
 
 class Visualizer {
     constructor(mesh, frequencyUniformName) {
@@ -63,12 +64,22 @@ class Visualizer {
 
     update() {
       const freq = Math.max(this.getFrequency() - 100, 0) / 50;
-      this.mesh.material.uniforms[this.frequencyUniformName].value = freq;
+      const freqUniform = this.mesh.material.uniforms[this.frequencyUniformName].value
+      
+      gsap.to(freqUniform, {
+        duration: 1.5,
+        ease: 'Slow.easeOut',
+        value: freq
+      })
+
       console.log({ freq })
     }
 }
 
 const startApp = () => {
+
+  
+
   const scene = useScene()
   const camera = useCamera()
   const gui = useGui()

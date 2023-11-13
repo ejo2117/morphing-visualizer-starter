@@ -30,9 +30,9 @@ struct Color{
 
 void main() {
     vec3 color;
-    float time = uTime * (1. + uAudioFrequency * 10.);
+    float time = uTime * (1. + uAudioFrequency);
 
-    vec3 mainColor = vec3(0.1, 0.4, 0.9);
+    vec3 mainColor = mix(vec3(0.2, 0.3, 0.9), vec3(0.4,1.0,0.3), uAudioFrequency);
 
     mainColor.r *= 0.9 + sin(time) / 3.2;    
     mainColor.g *= 1.1 + cos(time / 2.) / 2.5;    

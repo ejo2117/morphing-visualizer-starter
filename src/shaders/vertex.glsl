@@ -2,6 +2,7 @@ varying vec2 vUv;
 varying float vPattern;
 
 uniform float uTime;
+uniform float uAudioFrequency;
 
 // License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 // Created by S.Guillitte
@@ -72,8 +73,8 @@ void main() {
     vec3 light = normalize(vec3(3., 2., -1.));
 	float r = dot(nor(uv), light);
     
-    // displacement
-    vec3 newPosition = position + normal * clamp(1. - r, 0., .2);
+    float displacement = clamp(1. - r, 0., .2) + uAudioFrequency / 2.;
+    vec3 newPosition = position + normal * displacement;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1);
 
     vUv = uv;
