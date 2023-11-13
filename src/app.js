@@ -55,7 +55,6 @@ class Visualizer {
 
         this.sound.play()
       }
-      console.log({ sound: this.sound });
     }
 
     getFrequency() {
@@ -63,16 +62,15 @@ class Visualizer {
     }
 
     update() {
+      // this acts like a gate, should be adjusted depending on the track!
       const freq = Math.max(this.getFrequency() - 100, 0) / 50;
-      const freqUniform = this.mesh.material.uniforms[this.frequencyUniformName].value
+      const freqUniform = this.mesh.material.uniforms[this.frequencyUniformName]
       
       gsap.to(freqUniform, {
         duration: 1.5,
         ease: 'Slow.easeOut',
         value: freq
       })
-
-      console.log({ freq })
     }
 }
 
@@ -157,6 +155,7 @@ const startApp = () => {
   useTick(({ timestamp, timeDiff }) => {
     // animateIco()
     material.uniforms.uTime.value = timestamp / 1000;
+    visualizer.update()
   })
 }
 
