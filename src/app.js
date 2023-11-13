@@ -33,6 +33,9 @@ const startApp = () => {
   const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
+    uniforms: {
+      uTime: { value: 0 }
+    }
   })
   const ico = new THREE.Mesh(geometry, material)
   scene.add(ico)
@@ -73,6 +76,7 @@ const startApp = () => {
 
   useTick(({ timestamp, timeDiff }) => {
     // animateIco()
+    material.uniforms.uTime.value = timestamp / 1000;
   })
 }
 

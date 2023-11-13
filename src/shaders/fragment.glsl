@@ -5,6 +5,8 @@
 
 varying vec2 vUv;
 
+uniform float uTime;
+
 #define PI 3.14159265358979
 
 int windows = 0;
@@ -39,7 +41,7 @@ float gavoronoi3(in vec2 p)
     float f = 3.*PI;//frequency
     float v = 1.0;//cell variability <1.
     float dv = 0.0;//direction variability <1.
-    vec2 dir = m;//vec2(.7,.7);
+    vec2 dir = m + cos(uTime);//vec2(.7,.7);
     float va = 0.0;
    	float wt = 0.0;
     for (int i=-1; i<=1; i++) 
