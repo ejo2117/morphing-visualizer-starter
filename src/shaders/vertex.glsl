@@ -3,6 +3,11 @@ varying float vPattern;
 
 uniform float uTime;
 
+// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+// Created by S.Guillitte
+//Based on Voronoise by iq :https://www.shadertoy.com/view/Xd23Dh
+//and Gabor 4: normalized  by FabriceNeyret2 : https://www.shadertoy.com/view/XlsGDs
+
 #define PI 3.14159265358979
 
 vec2 m = vec2(.7,.8);
