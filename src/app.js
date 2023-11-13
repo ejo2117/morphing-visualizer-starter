@@ -15,6 +15,7 @@ import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js'
 
 import vertexShader from './shaders/vertex.glsl' 
 import fragmentShader from './shaders/fragment.glsl' 
+import { SoftGlitchPass } from './shaders/passes/SoftGlitch.js'
 
 import TRACK from './sounds/fire.mp3'
 import gsap from 'gsap'
@@ -71,6 +72,8 @@ class Visualizer {
         ease: 'Slow.easeOut',
         value: freq
       })
+
+      return freq
     }
 }
 
@@ -143,9 +146,13 @@ const startApp = () => {
   outputPass.renderToScreen = true
 
   // adding passes to composer
-  // addPass(blendPass)
-  // addPass(savePass)
-  // addPass(outputPass)
+  addPass(blendPass)
+  addPass(savePass)
+  addPass(outputPass)
+
+  const softGlitch = new SoftGlitchPass();
+  softGlitch.factor = 1;
+  addPass(softGlitch)
 
   const animateIco = () => {
     ico.rotation.x += ROTATION_SPEED
@@ -155,7 +162,9 @@ const startApp = () => {
   useTick(({ timestamp, timeDiff }) => {
     // animateIco()
     material.uniforms.uTime.value = timestamp / 1000;
-    visualizer.update()
+    const freq = visualizer.update()
+
+    softGlitch.factor = freq > 0.6 ? 0.7 : 0.1;
   })
 }
 
