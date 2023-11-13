@@ -27,10 +27,13 @@ struct Color{
 void main() {
     vec3 color;
 
-    Color[3] colors = Color[](
-        Color(vec3(0), 0.0),
-        Color(vec3(0,1,0), 0.5),
-        Color(vec3(1), 1.0)
+    vec3 mainColor = vec3(0.1, 0.4, 0.9);
+    
+    Color[4] colors = Color[](
+        Color(vec3(1), 0.0),
+        Color(vec3(1), 0.01),
+        Color(mainColor, 0.1),
+        Color(vec3(0.01,0.05,0.2), 1.0)
     );
 
     COLOR_RAMP(colors, vPattern, color);

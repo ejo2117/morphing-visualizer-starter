@@ -73,7 +73,7 @@ void main() {
 	float r = dot(nor(uv), light);
     
     // displacement
-    vec3 newPosition = position + normal * clamp(r, 0., .2);
+    vec3 newPosition = position + normal * clamp(1. - r, 0., .2);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1);
 
     vUv = uv;
