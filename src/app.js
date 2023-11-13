@@ -46,6 +46,17 @@ class Visualizer {
       })
     }
 
+    play() {
+      if (this.sound.isPlaying) {
+        this.sound.context.suspend()
+        this.sound.context.resume()
+      } else {
+
+        this.sound.play()
+      }
+      console.log({ sound: this.sound });
+    }
+
     getFrequency() {
       return this.analyser.getAverageFrequency()
     }
@@ -87,6 +98,14 @@ const startApp = () => {
   
   const visualizer = new Visualizer(ico, 'uAudioFrequency')
   visualizer.load(TRACK)
+
+  const startButton = document.querySelector('#clickCapture button');
+  startButton.addEventListener('click', e => {
+    console.log({ e});
+    const parent = e.target.parentElement;
+    parent.remove()
+    visualizer.play()
+  })
 
   scene.add(ico)
 

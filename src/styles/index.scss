@@ -5,3 +5,28 @@
 
 @import 'variables';
 @import 'scaffolding';
+
+#clickCapture {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255,255,255,0);
+  backdrop-filter: blur(16px);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+  button {
+    background: none;
+    border: 1px solid white;
+    border-radius: 2px;
+    color: white;
+    padding: 8px;
+    height: 44px;
+    width: 96px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
