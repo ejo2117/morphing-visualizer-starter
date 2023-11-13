@@ -1,5 +1,8 @@
 varying vec2 vUv;
 varying float vPattern;
+
+uniform float uTime;
+
 /* A struct made for the COLOR_RAMP macro */
 struct Color{
     vec3 c;
@@ -26,9 +29,17 @@ struct Color{
 
 void main() {
     vec3 color;
+    float time = uTime;
 
     vec3 mainColor = vec3(0.1, 0.4, 0.9);
-    
+
+    mainColor.r *= 0.9 + sin(time) / 3.2;    
+    mainColor.g *= 1.1 + cos(time / 2.) / 2.5;    
+    mainColor.b *= 0.8 + cos(time / 5.) / 4.0;    
+
+    mainColor.rgb += 0.1;
+
+
     Color[4] colors = Color[](
         Color(vec3(1), 0.0),
         Color(vec3(1), 0.01),
