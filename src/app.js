@@ -16,6 +16,45 @@ import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js'
 import vertexShader from './shaders/vertex.glsl' 
 import fragmentShader from './shaders/fragment.glsl' 
 
+import TRACK from './sounds/fire.mp3'
+
+class Visualizer {
+    constructor(mesh, frequencyUniformName) {
+      // mesh setup
+      this.mesh = mesh
+      this.frequencyUniformName = frequencyUniformName
+
+      // audio listener
+      this.listener = new THREE.AudioListener()
+      this.mesh.add(this.listener)
+
+      // global audio source
+      this.sound = new THREE.Audio(this.listener)
+      this.loader = new THREE.AudioLoader()
+
+      // analyser
+      this.analyser = new THREE.AudioAnalyser(this.sound, 32)
+    }
+
+    load(path) {
+      this.loader.load(path, (buffer) => {
+        this.sound.setBuffer(buffer)
+        this.sound.setLoop(true)
+        this.sound.setVolume(0.5)
+        this.sound.play()
+      })
+    }
+
+    getFrequency() {
+      return this.analyser.getAverageFrequency()
+    }
+
+    update() {
+      const freq = this.getFrequency()
+      console.log({ freq })
+    }
+}
+
 const startApp = () => {
   const scene = useScene()
   const camera = useCamera()
@@ -43,6 +82,10 @@ const startApp = () => {
   wireframe.scale.setScalar(1 + WIREFRAME_DELTA)
   
   ico.add(wireframe)
+  
+  const visualizer = new Visualizer(ico, 'uAudioFrequency')
+  visualizer.load(TRACK)
+
   scene.add(ico)
 
   // GUI
@@ -70,9 +113,9 @@ const startApp = () => {
   outputPass.renderToScreen = true
 
   // adding passes to composer
-  addPass(blendPass)
-  addPass(savePass)
-  addPass(outputPass)
+  // addPass(blendPass)
+  // addPass(savePass)
+  // addPass(outputPass)
 
   const animateIco = () => {
     ico.rotation.x += ROTATION_SPEED
