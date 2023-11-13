@@ -67,7 +67,9 @@ void main() {
     vec3 light = normalize(vec3(3., 2., -1.));
 	float r = dot(nor(uv), light);
     
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1);
+    // displacement
+    vec3 newPosition = position + normal * clamp(r, 0., .2);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1);
 
     vUv = uv;
     vPattern = r;
