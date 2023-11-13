@@ -38,6 +38,11 @@ const startApp = () => {
     }
   })
   const ico = new THREE.Mesh(geometry, material)
+  const wireframe = new THREE.LineSegments(geometry, material)
+  const WIREFRAME_DELTA = 0.015
+  wireframe.scale.setScalar(1 + WIREFRAME_DELTA)
+  
+  ico.add(wireframe)
   scene.add(ico)
 
   // GUI
