@@ -23,6 +23,7 @@ class Visualizer {
       // mesh setup
       this.mesh = mesh
       this.frequencyUniformName = frequencyUniformName
+      this.mesh.material.uniforms[this.frequencyUniformName] = { value: 0 }
 
       // audio listener
       this.listener = new THREE.AudioListener()
@@ -50,7 +51,8 @@ class Visualizer {
     }
 
     update() {
-      const freq = this.getFrequency()
+      const freq = Math.max(this.getFrequency() - 100, 0) / 50;
+      this.mesh.material.uniforms[this.frequencyUniformName].value = freq;
       console.log({ freq })
     }
 }

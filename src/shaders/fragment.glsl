@@ -2,6 +2,7 @@ varying vec2 vUv;
 varying float vPattern;
 
 uniform float uTime;
+uniform float uAudioFrequency;
 
 /* A struct made for the COLOR_RAMP macro */
 struct Color{
@@ -29,7 +30,7 @@ struct Color{
 
 void main() {
     vec3 color;
-    float time = uTime;
+    float time = uTime * (1. + uAudioFrequency * 10.);
 
     vec3 mainColor = vec3(0.1, 0.4, 0.9);
 
